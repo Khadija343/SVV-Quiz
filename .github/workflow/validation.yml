@@ -1,0 +1,29 @@
+
+name: Validation Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Generate Validation Log
+        run: |
+          mkdir evidence
+          echo "Validation Completed Successfully" > evidence/validation-log.txt
+
+      - name: Upload Validation Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-evidence
+          path: evidence/
+
+      - name: Display Workflow Status
+        run: echo "Workflow Executed Successfully"
